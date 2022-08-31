@@ -14,3 +14,4 @@ pycodestyle==2.9.1
 pyflakes==2.5.0
 pytz==2022.1
 yarl==1.8.1
+peewee~=3.15.2

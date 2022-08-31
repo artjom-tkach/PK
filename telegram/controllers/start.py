@@ -6,10 +6,9 @@ from telegram.views.start import StartView
 
 class StartController:
 
-    def __init__(self, bot, dispatcher, database):
+    def __init__(self, bot, dispatcher):
         self.bot = bot
         self.dispatcher = dispatcher
-        self.database = database
 
         # Set handlers
         self.set_handlers()
@@ -20,7 +19,7 @@ class StartController:
             """
             This handler will be called when user sends '/start' command
             """
-            user = await UserModel(self.database).create(message)
+            user = await UserModel.create(message)
 
             view = StartView(self.bot, user, message)
 
