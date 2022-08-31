@@ -8,8 +8,8 @@ class UnknownView:
         self.__user = user
         self.__message = message
 
-    async def unknown_handler(self):
-        user_view = UserView(self.__bot, self.__user, self.__message)
+        self.__user_view = UserView(self.__bot, self.__user, self.__message)
 
-        if await user_view.is_valid():
+    async def unknown_handler(self):
+        if await self.__user_view.is_valid():
             return await self.__bot.send_message(self.__message.from_user.id, 'What?')

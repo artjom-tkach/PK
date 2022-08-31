@@ -7,22 +7,21 @@ from telegram.views.start import StartView
 class StartController:
 
     def __init__(self, bot, dispatcher, database):
-        self.__bot = bot
-        self.__dispatcher = dispatcher
-        self.__database = database
+        self.bot = bot
+        self.dispatcher = dispatcher
+        self.database = database
 
-        self.__handlers()
+        # Set handlers
+        self.set_handlers()
 
-        super().__init__(self.__bot, self.__dispatcher, self.__database)
-
-    def __handlers(self):
-        @self.__dispatcher.message_handler(commands=['start'])
+    def set_handlers(self):
+        @self.dispatcher.message_handler(commands=['start'])
         async def start_handler(message: types.Message):
             """
             This handler will be called when user sends '/start' command
             """
-            user = await UserModel(self.__database).create(message)
+            user = await UserModel(self.database).create(message)
 
-            view = StartView(self.__bot, user, message)
+            view = StartView(self.bot, user, message)
 
             await view.start_handler()

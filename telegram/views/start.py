@@ -8,10 +8,10 @@ class StartView:
         self.__user = user
         self.__message = message
 
-    async def start_handler(self):
-        user_view = UserView(self.__bot, self.__user, self.__message)
+        self.__user_view = UserView(self.__bot, self.__user, self.__message)
 
-        if await user_view.is_valid():
+    async def start_handler(self):
+        if await self.__user_view.is_valid():
             send_text = {
                 'en': 'Welcome!',
                 'ru': 'Добро пожаловать!',

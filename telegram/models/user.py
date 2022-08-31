@@ -5,6 +5,7 @@ import pytz
 class UserModel:
     __table_name = 'Users'
     __timezone = 'Europe/Berlin'
+    __date_format = '%d.%m.%Y %H:%M:%S'
 
     def __init__(self, sqlite3):
         self.__sqlite3 = sqlite3
@@ -26,7 +27,7 @@ class UserModel:
                 'last_name': message.from_user.last_name,
                 'username': message.from_user.username,
                 'language_code': message.from_user.language_code,
-                'created_at': datetime.datetime.now(pytz.timezone(self.__timezone)).strftime('%d.%m.%Y %H:%M:%S')
+                'created_at': datetime.datetime.now(pytz.timezone(self.__timezone)).strftime(self.__date_format)
             }, get_select=True)
 
         return user
@@ -35,7 +36,7 @@ class UserModel:
         return self.__sqlite3.update(
             table_name=self.__table_name,
             update_fields={
-                'acted_at': datetime.datetime.now(pytz.timezone(self.__timezone)).strftime('%d.%m.%Y %H:%M:%S'),
+                'acted_at': datetime.datetime.now(pytz.timezone(self.__timezone)).strftime(self.__date_format),
                 'username': message.from_user.username
             },
             where_fields=[{

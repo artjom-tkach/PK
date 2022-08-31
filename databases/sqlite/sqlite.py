@@ -7,7 +7,7 @@ from .insert import Insert
 from .update import Update
 
 
-class Sqlite3(Select, Insert, Update, Delete):
+class Sqlite(Select, Insert, Update, Delete):
     connection = None
     __database_file = f'{os.path.dirname(os.path.abspath(__file__))}/sqlite.db'
 

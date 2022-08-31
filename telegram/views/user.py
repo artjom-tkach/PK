@@ -6,7 +6,7 @@ class UserView:
         self.__message = message
 
     async def is_empty(self):
-        return self.__user is None
+        return not self.__user
 
     async def is_blocked(self):
         return self.__user['is_blocked'] == 1
@@ -21,7 +21,7 @@ class UserView:
             await self.__bot.send_message(
                 self.__message.from_user.id,
                 send_text.get(
-                    self.__message.from_user.language_code, 'en'
+                    self.__message.from_user.language_code, send_text['en']
                 )
             )
 
@@ -34,7 +34,7 @@ class UserView:
             await self.__bot.send_message(
                 self.__message.from_user.id,
                 send_text.get(
-                    self.__user['language_code'], 'en'
+                    self.__user['language_code'], send_text['en']
                 )
             )
 

@@ -7,20 +7,20 @@ from telegram.views.unknown import UnknownView
 class UnknownController:
 
     def __init__(self, bot, dispatcher, database):
-        self.__bot = bot
-        self.__dispatcher = dispatcher
-        self.__database = database
+        self.bot = bot
+        self.dispatcher = dispatcher
+        self.database = database
 
-        self.__handlers()
+        self.set_handlers()
 
-    def __handlers(self):
-        @self.__dispatcher.message_handler()
+    def set_handlers(self):
+        @self.dispatcher.message_handler()
         async def unknown_handler(message: types.Message):
             """
             This handler will be called unknown command
             """
-            user = await UserModel(self.__database).get(message.from_user.id)
+            user = await UserModel(self.database).get(message.from_user.id)
 
-            view = UnknownView(self.__bot, user, message)
+            view = UnknownView(self.bot, user, message)
 
             await view.unknown_handler()
