@@ -6,9 +6,7 @@ from telegram.models.user import UserModel
 
 class ActivityMiddleware(BaseMiddleware):
 
-    def __init__(self, database):
-        self.__database = database
-
+    def __init__(self):
         super().__init__()
 
     async def on_process_message(self, message: types.Message, data: dict):
@@ -17,4 +15,4 @@ class ActivityMiddleware(BaseMiddleware):
         :param message:
         :param data:
         """
-        await UserModel(self.__database).update_activity(message)
+        await UserModel.update_activity(message)

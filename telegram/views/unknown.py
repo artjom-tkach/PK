@@ -1,15 +1,17 @@
-from telegram.views.user import UserView
+from telegram.views.view import View
 
 
-class UnknownView:
+class UnknownView(View):
 
-    def __init__(self, bot, user, message):
-        self.__bot = bot
-        self.__user = user
-        self.__message = message
+    def __init__(self, bot):
+        self.bot = bot
 
-        self.__user_view = UserView(self.__bot, self.__user, self.__message)
+        super().__init__(bot)
 
-    async def unknown_handler(self):
-        if await self.__user_view.is_valid():
-            return await self.__bot.send_message(self.__message.from_user.id, 'What?')
+    async def unknown_handler(self, user):
+        if await self.is_valid(user):
+            texts = {
+                'en': 'I don\'t know this command.',
+                'ru': 'Я не знаю такой команды.'
+            }
+            await self.bot.send_message(user.user_id, await self.get_text(texts, user.language_code))

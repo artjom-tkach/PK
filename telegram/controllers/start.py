@@ -10,6 +10,9 @@ class StartController:
         self.bot = bot
         self.dispatcher = dispatcher
 
+        # Set view
+        self.view = StartView(bot)
+
         # Set handlers
         self.set_handlers()
 
@@ -19,8 +22,6 @@ class StartController:
             """
             This handler will be called when user sends '/start' command
             """
-            user = await UserModel.create(message)
+            user = await UserModel().get_or_create(message)
 
-            view = StartView(self.bot, user, message)
-
-            await view.start_handler()
+            await self.view.start_handler(user)

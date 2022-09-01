@@ -1,4 +1,5 @@
 import os
+import datetime
 from peewee import *
 
 db_file = f'{os.path.dirname(os.path.abspath(__file__))}/sqlite.db'
@@ -11,10 +12,16 @@ class BaseModel(Model):
 
 
 class User(BaseModel):
-    username = CharField(unique=True)
+    user_id = BigIntegerField(unique=True)
+    first_name = CharField()
+    last_name = CharField(null=True)
+    username = CharField(unique=True, null=True)
+    language_code = CharField(null=True, default='en')
+    is_blocked = BooleanField(default=False)
+    acted_at = DateTimeField(default=datetime.datetime.now)
+    created_at = DateTimeField(default=datetime.datetime.now)
 
 
-class Tweet(BaseModel):
-    user = ForeignKeyField(User, backref='tweets')
-    message = TextField()
-    is_published = BooleanField(default=True)
+if __name__ == '__main__':
+    # db.create_tables([User])
+    ...
