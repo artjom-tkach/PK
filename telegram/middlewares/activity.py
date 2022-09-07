@@ -15,4 +15,4 @@ class ActivityMiddleware(BaseMiddleware):
         :param message:
         :param data:
         """
-        await UserModel.update_activity(message)
+        await UserModel.update_username_and_acted_at(message)

@@ -1,21 +1,21 @@
-from telegram.views.keyboards.start import StartKeyboard
+from telegram.views.keyboards.buy_product import BuyProductKeyboard
 from telegram.views.view import View
 
 
-class StartView(View):
+class BuyProductView(View):
 
     def __init__(self, bot):
         self.bot = bot
 
         super().__init__(bot)
 
-    async def start_handler(self, user):
+    async def buy_product_handler(self, user):
         if await self.is_valid(user):
             texts = {
-                'en': 'Welcome!',
-                'ru': 'Добро пожаловать!'
+                'en': 'Buy!',
+                'ru': 'Купить!'
             }
             await self.bot.send_message(
                 user.user_id, self.get_text(texts, user.language_code),
-                reply_markup=StartKeyboard().get_main_menu(user.language_code)
+                reply_markup=BuyProductKeyboard().get_main_menu(user.language_code)
             )

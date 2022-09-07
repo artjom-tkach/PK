@@ -2,11 +2,13 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 # Controllers
-from .start import StartController
-from .unknown import UnknownController
+from telegram.controllers.start import StartController
+from telegram.controllers.buy_product import BuyProductController
+from telegram.controllers.unknown import UnknownController
 
 # Middlewares
-from ..middlewares.activity import ActivityMiddleware
+from telegram.middlewares.activity import ActivityMiddleware
+from telegram.middlewares.throttling import ThrottlingMiddleware
 
 
 class MainController:
@@ -14,14 +16,14 @@ class MainController:
     middlewares = {}
 
     def __init__(self, token):
-        self.bot = Bot(token=token)
+        self.bot = Bot(token=token, parse_mode='HTML')
         self.dispatcher = Dispatcher(self.bot, storage=MemoryStorage())
 
         # Set controllers
-        self.set_controllers(StartController, UnknownController)
+        self.set_controllers(StartController, BuyProductController, UnknownController)
 
         # Set middlewares
-        self.set_middlewares(ActivityMiddleware)
+        self.set_middlewares(ActivityMiddleware, ThrottlingMiddleware)
 
         print(f'Active controllers: {self.controllers}')
         print(f'Active middlewares: {self.middlewares}')

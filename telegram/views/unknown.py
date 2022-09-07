@@ -14,4 +14,4 @@ class UnknownView(View):
                 'en': 'I don\'t know this command.',
                 'ru': 'Я не знаю такой команды.'
             }
-            await self.bot.send_message(user.user_id, await self.get_text(texts, user.language_code))
+            await self.bot.send_message(user.user_id, self.get_text(texts, user.language_code))

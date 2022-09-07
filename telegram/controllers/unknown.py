@@ -17,7 +17,7 @@ class UnknownController:
         self.set_handlers()
 
     def set_handlers(self):
-        @self.dispatcher.message_handler()
+        @self.dispatcher.message_handler(state='*')
         async def unknown_handler(message: types.Message):
             """
             This handler will be called unknown command

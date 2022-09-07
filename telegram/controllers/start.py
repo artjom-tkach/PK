@@ -22,6 +22,6 @@ class StartController:
             """
             This handler will be called when user sends '/start' command
             """
-            user = await UserModel().get_or_create(message)
+            user = await UserModel.get_or_create(message)
 
             await self.view.start_handler(user)
