@@ -22,6 +22,18 @@ class User(BaseModel):
     created_at = DateTimeField(default=datetime.datetime.now)
 
 
+class Category(BaseModel):
+    # Language titles
+    title_en = CharField()
+    title_ru = CharField()
+    # Language description
+    description_en = CharField()
+    description_ru = CharField()
+
+    image = CharField(null=True)
+    is_active = BooleanField(default=True)
+    created_at = DateTimeField(default=datetime.datetime.now)
+
+
 if __name__ == '__main__':
-    # db.create_tables([User])
-    ...
+    db.create_tables([User, Category])

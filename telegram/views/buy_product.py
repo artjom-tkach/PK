@@ -9,13 +9,14 @@ class BuyProductView(View):
 
         super().__init__(bot)
 
-    async def buy_product_handler(self, user):
+    async def buy_product_handler(self, user, category_callback):
         if await self.is_valid(user):
             texts = {
-                'en': 'Buy!',
-                'ru': 'Купить!'
+                'en': 'Choose category of product.',
+                'ru': 'Выберите категорию товара.'
             }
+
             await self.bot.send_message(
                 user.user_id, self.get_text(texts, user.language_code),
-                reply_markup=BuyProductKeyboard().get_main_menu(user.language_code)
+                reply_markup=BuyProductKeyboard.get_categories(category_callback, language=user.language_code)
             )

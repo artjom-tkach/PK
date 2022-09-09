@@ -11,7 +11,8 @@ class Keyboard:
         }
     }
 
-    def get_main_menu(self, language='en'):
+    @staticmethod
+    def get_main_menu(language='en'):
         keyboard = ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-        keyboard.add(KeyboardButton(View.get_text(self.buttons['buy_product'], language)))
+        keyboard.add(KeyboardButton(View.get_text(Keyboard.buttons['buy_product'], language)))
         return keyboard

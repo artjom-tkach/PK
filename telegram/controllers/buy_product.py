@@ -1,4 +1,5 @@
 from aiogram import types
+from aiogram.utils.callback_data import CallbackData
 
 from telegram.models.user import UserModel
 from telegram.views.buy_product import BuyProductView
@@ -6,6 +7,9 @@ from telegram.views.keyboards.buy_product import BuyProductKeyboard
 
 
 class BuyProductController:
+
+    # Callback
+    category_callback = CallbackData('category', 'action', 'category_id')
 
     def __init__(self, bot, dispatcher):
         self.bot = bot
@@ -22,4 +26,8 @@ class BuyProductController:
                                          state='*')
         async def buy_product_handler(message: types.Message):
             user = await UserModel.get(message)
-            await self.view.buy_product_handler(user)
+            await self.view.buy_product_handler(user, self.category_callback)
+
+        @self.dispatcher.callback_query_handler(self.category_callback.filter(action='choose'))
+        async def choose_category_handler(query: types.CallbackQuery, callback_data: dict):
+            print(callback_data)

@@ -17,5 +17,5 @@ class StartView(View):
             }
             await self.bot.send_message(
                 user.user_id, self.get_text(texts, user.language_code),
-                reply_markup=StartKeyboard().get_main_menu(user.language_code)
+                reply_markup=StartKeyboard.get_main_menu(user.language_code)
             )

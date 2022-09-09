@@ -19,8 +19,9 @@ class View:
         return True
 
     @staticmethod
-    def get_text(texts, language='en'):
-        if isinstance(texts, dict):
-            return texts.get(language, texts['en'])
+    def get_with_tags(text, tags=None):
+        return bleach.clean(text, tags=tags)
 
-        return bleach.clean(texts, tags=[], strip=True)
+    @staticmethod
+    def get_text(texts, language='en'):
+        return View.get_with_tags(texts.get(language, texts['en']), ['b', 'i', 'a', 'code', 'pre'])
