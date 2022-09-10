@@ -9,7 +9,7 @@ class BuyProductView(View):
 
         super().__init__(bot)
 
-    async def buy_product_handler(self, user, category_callback):
+    async def get_parents_categories(self, user, categories, category_callback):
         if await self.is_valid(user):
             texts = {
                 'en': 'Choose category of product.',
@@ -18,5 +18,22 @@ class BuyProductView(View):
 
             await self.bot.send_message(
                 user.user_id, self.get_text(texts, user.language_code),
-                reply_markup=BuyProductKeyboard.get_categories(category_callback, language=user.language_code)
+                reply_markup=await BuyProductKeyboard.get_parents_categories(
+                    categories,
+                    category_callback,
+                    language=user.language_code
+                )
+            )
+
+    async def get_children_categories(self, query, user, categories, category_callback):
+        if await self.is_valid(user):
+            texts = {
+                'en': f'Choose subcategory of <b>{categories[0].parent.title_en.capitalize()}.</b>',
+                'ru': f'Выберите подкатегорию <b>{categories[0].parent.title_ru.capitalize()}.</b>'
+            }
+
+            await query.message.edit_text(
+                self.get_text(texts, user.language_code),
+                reply_markup=await BuyProductKeyboard.get_children_categories(categories, category_callback,
+                                                                              language=user.language_code)
             )

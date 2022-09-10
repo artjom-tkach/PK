@@ -18,7 +18,7 @@ class StartController:
 
     def set_handlers(self):
         @self.dispatcher.message_handler(commands=['start'])
-        async def start_handler(message: types.Message):
+        async def start(message: types.Message):
             """
             This handler will be called when user sends '/start' command
             """

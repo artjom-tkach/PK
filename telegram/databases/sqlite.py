@@ -31,9 +31,26 @@ class Category(BaseModel):
     description_ru = CharField()
 
     image = CharField(null=True)
+    parent = ForeignKeyField('self', backref='children', null=True, on_delete='SET NULL')
+
+    is_active = BooleanField(default=True)
+    created_at = DateTimeField(default=datetime.datetime.now)
+
+
+class Product(BaseModel):
+    # Language titles
+    title_en = CharField()
+    title_ru = CharField()
+    # Language description
+    description_en = CharField()
+    description_ru = CharField()
+
+    image = CharField(null=True)
+
     is_active = BooleanField(default=True)
     created_at = DateTimeField(default=datetime.datetime.now)
 
 
 if __name__ == '__main__':
+    # db.drop_tables([Category])
     db.create_tables([User, Category])

@@ -18,10 +18,10 @@ class UnknownController:
 
     def set_handlers(self):
         @self.dispatcher.message_handler(state='*')
-        async def unknown_handler(message: types.Message):
+        async def unknown(message: types.Message):
             """
             This handler will be called unknown command
             """
-            user = await UserModel.get(message)
+            user = await UserModel.get(message.from_user.id)
 
             await self.view.unknown_handler(user)

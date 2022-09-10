@@ -9,7 +9,7 @@ class StartView(View):
 
         super().__init__(bot)
 
-    async def start_handler(self, user):
+    async def start(self, user):
         if await self.is_valid(user):
             texts = {
                 'en': 'Welcome!',

@@ -16,8 +16,8 @@ class UserModel:
         )
 
     @staticmethod
-    async def get(message):
-        return User.get(user_id=message.from_user.id)
+    async def get(user_id):
+        return User.get(user_id=user_id)
 
     @staticmethod
     async def get_or_create(message):

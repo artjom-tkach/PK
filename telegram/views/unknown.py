@@ -8,7 +8,7 @@ class UnknownView(View):
 
         super().__init__(bot)
 
-    async def unknown_handler(self, user):
+    async def unknown(self, user):
         if await self.is_valid(user):
             texts = {
                 'en': 'I don\'t know this command.',
